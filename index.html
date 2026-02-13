@@ -12,13 +12,28 @@
             --gold-light: #f4d03f;
             --gold-dark: #b8941e;
         }
-        body { font-family: 'Rajdhani', sans-serif; overflow-x: hidden; background: #000; color: #fff; }
-        #wave-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
+        body { font-family: 'Rajdhani', sans-serif; overflow: hidden; background: #000; color: #fff; }
+        
+        .mesh-wrap {
+            position: fixed;
+            inset: -80% -100%;
+            transform-style: preserve-3d;
+            transform: perspective(900px) rotateX(20deg) rotateZ(-45deg) scale(0.95);
+            transform-origin: 50% 40%;
+            z-index: 0;
+        }
+        
+        #wave-canvas { 
+            width: 100%; 
+            height: 100%; 
+            display: block;
+        }
+        
         .sidebar { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 15px; padding: 20px; }
         .nav-icon { width: 50px; height: 50px; background: #000; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s; border: 2px solid var(--gold); }
         .nav-icon img { width: 24px; height: 24px; filter: brightness(0) saturate(100%) invert(72%) sepia(52%) saturate(430%) hue-rotate(3deg) brightness(95%) contrast(88%); }
         .nav-icon:hover, .nav-icon.active { background: rgba(212, 175, 55, 0.1); transform: translateX(10px); box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
-        .content { position: relative; z-index: 10; min-height: 100vh; margin-left: 100px; padding: 60px; }
+        .content { position: relative; z-index: 10; min-height: 100vh; margin-left: 100px; padding: 60px; overflow-y: auto; height: 100vh; }
         .section { min-height: 100vh; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(50px); transition: all 0.8s; }
         .section.visible { opacity: 1; transform: translateY(0); }
         .greeting { font-size: 1.5rem; color: var(--gold); margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
@@ -65,13 +80,17 @@
     </style>
 </head>
 <body>
-    <canvas id="wave-canvas"></canvas>
+    <div class="mesh-wrap">
+        <canvas id="wave-canvas" width="2000" height="1200"></canvas>
+    </div>
+    
     <div class="sidebar">
         <div class="nav-icon active" data-section="home"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E"></div>
         <div class="nav-icon" data-section="about"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E"></div>
         <div class="nav-icon" data-section="projects"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z'/%3E%3C/svg%3E"></div>
         <div class="nav-icon" data-section="contact"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E"></div>
     </div>
+    
     <div class="content">
         <section id="home" class="section visible">
             <div class="home-content">
@@ -84,6 +103,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="about" class="section">
             <div class="about-content">
                 <div class="about-text">
@@ -99,6 +119,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="projects" class="section">
             <div class="projects-content">
                 <h2>My Projects</h2>
@@ -150,7 +171,7 @@
                     </div>
                     <div class="project-card">
                         <div class="project-video">
-                            <iframe src="https://www.youtube.com/watch?v=isCoea8PYi8" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/WfIGHt-0dmE" allowfullscreen></iframe>
                         </div>
                         <div class="project-info">
                             <h3>Movement & Emote System</h3>
@@ -166,6 +187,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="contact" class="section">
             <div class="contact-content">
                 <h2>Get In Touch</h2>
@@ -183,104 +205,155 @@
             </div>
         </section>
     </div>
+    
     <script>
         const canvas = document.getElementById('wave-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
         
-        const gridSize = 140;
-        const cols = Math.ceil(canvas.width / gridSize) + 3;
-        const rows = Math.ceil(canvas.height / gridSize) + 3;
+        if (!gl) {
+            alert('WebGL not supported! Falling back to basic rendering.');
+        }
+        
+        // Vertex shader
+        const vsSource = `
+            attribute vec2 aPosition;
+            attribute vec3 aColor;
+            varying vec3 vColor;
+            void main() {
+                gl_Position = vec4(aPosition, 0.0, 1.0);
+                vColor = aColor;
+            }
+        `;
+        
+        // Fragment shader
+        const fsSource = `
+            precision mediump float;
+            varying vec3 vColor;
+            void main() {
+                gl_FragColor = vec4(vColor, 1.0);
+            }
+        `;
+        
+        function createShader(gl, type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error(gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            return shader;
+        }
+        
+        const vertexShader = createShader(gl, gl.VERTEX_SHADER, vsSource);
+        const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+        
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        gl.useProgram(program);
+        
+        const positionLoc = gl.getAttribLocation(program, 'aPosition');
+        const colorLoc = gl.getAttribLocation(program, 'aColor');
+        
+        const cols = 60, rows = 40; // MAXIMUM grid cells
+        const points = [];
         let time = 0;
         
-        class Vertex {
-            constructor(x, y) {
-                this.baseX = x;
-                this.baseY = y;
-                this.x = x;
-                this.y = y;
-                this.z = 0;
+        // MAXIMUM extension - cover everything!
+        const gridExtend = 1.2; // Extend 120% beyond edges
+        
+        // Create grid
+        for (let y = 0; y <= rows; y++) {
+            const row = [];
+            for (let x = 0; x <= cols; x++) {
+                const px = ((x / cols) * 2 - 1) * (1 + gridExtend);
+                const py = ((y / rows) * 2 - 1) * (1 + gridExtend);
+                const cellW = (2 * (1 + gridExtend)) / cols;
+                const cellH = (2 * (1 + gridExtend)) / rows;
+                row.push({
+                    ox: px + (Math.random() - 0.5) * cellW * 0.15,
+                    oy: py + (Math.random() - 0.5) * cellH * 0.15,
+                    x: 0,
+                    y: 0,
+                    phase: Math.random() * Math.PI * 2,
+                    amp: (Math.random() * 0.04 + 0.02) * 0.7
+                });
             }
-            
-            update(t) {
-                const offsetX = this.baseX / gridSize;
-                const offsetY = this.baseY / gridSize;
-                
-                this.z = Math.sin(offsetX * 0.4 + t) * 30 + 
-                         Math.cos(offsetY * 0.3 + t * 0.8) * 30 +
-                         Math.sin((offsetX + offsetY) * 0.2 + t * 1.2) * 20;
-                
-                const scale = 1 + this.z * 0.001;
-                this.x = this.baseX * scale;
-                this.y = this.baseY * scale;
-            }
+            points.push(row);
         }
         
-        const vertices = [];
-        for (let i = -1; i < rows; i++) {
-            vertices[i + 1] = [];
-            for (let j = -1; j < cols; j++) {
-                vertices[i + 1][j + 1] = new Vertex(
-                    (j - 1) * gridSize,
-                    (i - 1) * gridSize
-                );
-            }
-        }
-        
-        function drawWave() {
-            ctx.fillStyle = '#000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function animate() {
+            time += 0.02;
+            const longWave = Math.sin(time * 0.28 * 0.65) * 0.05 * 0.7;
             
-            time += 0.025;
-            
-            for (let i = 0; i < rows + 1; i++) {
-                for (let j = 0; j < cols + 1; j++) {
-                    vertices[i][j].update(time);
+            // Update points
+            for (let y = 0; y <= rows; y++) {
+                for (let x = 0; x <= cols; x++) {
+                    const p = points[y][x];
+                    const u = (x / cols + y / rows) * 0.5;
+                    const wave = Math.sin(time * 0.9 * 0.65 + p.phase + u * 5.0) * p.amp * (0.7 + u * 0.5);
+                    p.x = p.ox + Math.cos(time * 0.45 + p.phase * 0.35) * ((p.amp / 6) * Math.sin((y / rows) * Math.PI));
+                    p.y = p.oy + wave + longWave * (u - 0.5) * 0.9;
                 }
             }
             
-            for (let i = 0; i < rows; i++) {
-                for (let j = 0; j < cols; j++) {
-                    const v1 = vertices[i][j];
-                    const v2 = vertices[i][j + 1];
-                    const v3 = vertices[i + 1][j];
-                    const v4 = vertices[i + 1][j + 1];
+            // Build vertex data
+            const vertices = [];
+            const colors = [];
+            
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const p00 = points[y][x];
+                    const p10 = points[y][x + 1];
+                    const p01 = points[y + 1][x];
+                    const p11 = points[y + 1][x + 1];
                     
-                    ctx.beginPath();
-                    ctx.moveTo(v1.x, v1.y);
-                    ctx.lineTo(v2.x, v2.y);
-                    ctx.lineTo(v3.x, v3.y);
-                    ctx.closePath();
-                    ctx.fillStyle = '#000';
-                    ctx.fill();
-                    ctx.strokeStyle = 'rgba(212, 175, 55, 0.7)';
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
+                    // Triangle 1
+                    vertices.push(p00.x, p00.y, p10.x, p10.y, p11.x, p11.y);
+                    const cy1 = ((p00.y + p10.y + p11.y) / 3 + 1) / 2;
+                    const r1 = 0.04 + cy1 * 0.78;
+                    const g1 = 0.03 + cy1 * 0.63;
+                    const b1 = 0 + cy1 * 0.16;
+                    colors.push(r1, g1, b1, r1, g1, b1, r1, g1, b1);
                     
-                    ctx.beginPath();
-                    ctx.moveTo(v2.x, v2.y);
-                    ctx.lineTo(v4.x, v4.y);
-                    ctx.lineTo(v3.x, v3.y);
-                    ctx.closePath();
-                    ctx.fillStyle = '#000';
-                    ctx.fill();
-                    ctx.strokeStyle = 'rgba(212, 175, 55, 0.7)';
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
+                    // Triangle 2
+                    vertices.push(p00.x, p00.y, p11.x, p11.y, p01.x, p01.y);
+                    const cy2 = ((p00.y + p11.y + p01.y) / 3 + 1) / 2;
+                    const r2 = 0.04 + cy2 * 0.78;
+                    const g2 = 0.03 + cy2 * 0.63;
+                    const b2 = 0 + cy2 * 0.16;
+                    colors.push(r2, g2, b2, r2, g2, b2, r2, g2, b2);
                 }
             }
             
-            requestAnimationFrame(drawWave);
+            // Position buffer
+            const posBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+            gl.enableVertexAttribArray(positionLoc);
+            gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+            
+            // Color buffer
+            const colBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, colBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW);
+            gl.enableVertexAttribArray(colorLoc);
+            gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
+            
+            // Draw
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
+            
+            requestAnimationFrame(animate);
         }
         
-        drawWave();
+        animate();
         
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-        
+        // Navigation
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
@@ -311,6 +384,7 @@
         
         sections.forEach(section => observer.observe(section));
         
+        // Parallax mouse effect
         let currentX = 0, currentY = 0, currentZoom = 1;
         let targetX = 0, targetY = 0, targetZoom = 1;
         const content = document.querySelector('.content');
@@ -319,18 +393,21 @@
             const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
             const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
             targetX = -mouseX * 30;
-            targetZoom = 1 + (mouseY * 0.05);
             targetY = mouseY * 20;
+            // Zoom in when moving left OR right (use absolute value)
+            const horizontalZoom = Math.abs(mouseX) * 0.08;
+            const verticalZoom = mouseY * 0.03;
+            targetZoom = 1 + horizontalZoom + verticalZoom;
         });
         
-        function animate() {
+        function animateParallax() {
             currentX += (targetX - currentX) * 0.1;
             currentY += (targetY - currentY) * 0.1;
             currentZoom += (targetZoom - currentZoom) * 0.1;
             content.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentZoom})`;
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateParallax);
         }
-        animate();
+        animateParallax();
     </script>
 </body>
 </html>
